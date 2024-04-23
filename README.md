@@ -7,6 +7,7 @@ tags:
 - text-classification
 - authorship-verification
 - PAN
+- transformers
 - Siamese-RoBERTa
 repo: https://github.com/Gha5san/authorship-verification
 
@@ -52,6 +53,17 @@ This model is based upon a RoBERTa model that was fine-tuned on a corpus compris
 
 <!-- This relates heavily to the Technical Specifications. Content here should link to that section when it is relevant to the training procedure. -->
 
+### Loss Functions
+
+The model was fine-tuned using a selection of loss functions to enhance its capability in authorship verification. Each loss function targets specific aspects of similarity and contrast within the text embeddings:
+
+- **CosineSimilarityLoss**: Primarily used, it optimizes the cosine distance to closely align embeddings from the same author while diverging those from different authors. Proven most effective for its balance in performance and efficiency.
+- **ContrastiveLoss**: This margin-based loss function differentiates positive from negative pairs by enforcing a margin threshold, suitable for distinct separation in simpler contexts.
+- **OnlineContrastiveLoss**: Geared towards challenging examples, it dynamically adjusts margins to effectively separate less obvious text pairs.
+
+For detailed descriptions of each loss function, refer to the [Sentence-BERT loss functions documentation](https://www.sbert.net/docs/package_reference/losses.html).
+
+
 #### Training Hyperparameters
 
 <!-- This is a summary of the values of hyperparameters used in training the model. -->
@@ -70,6 +82,10 @@ This model is based upon a RoBERTa model that was fine-tuned on a corpus compris
       - duration per training epoch: 1 hour
       - model size: 450MB
 
+### Model Weights and Download
+
+The trained model weights can be accessed and downloaded from the following Google Drive link: [Model Weights](https://drive.google.com/drive/folders/1lN3j9HR74CZ-6dk039DLN5o-jbLV9R6G?usp=sharing). If the link is broken or inaccessible, please contact me.
+
 ## Evaluation
 
 <!-- This section describes the evaluation protocols and provides the results. -->
@@ -80,7 +96,7 @@ This model is based upon a RoBERTa model that was fine-tuned on a corpus compris
 
 <!-- This should describe any evaluation data used (e.g., the development/validation set provided). -->
 
-30% of the training data seprated for validation. Another new dev set of 6K was used for testing
+30% of the training data is separated for validation. Another new dev set of 6K was used for testing
 
 #### Metrics
 
@@ -103,8 +119,8 @@ The model achieved an F1-score of 80% and an accuracy of 81% on the validation s
 ### Hardware
 
 
-      - RAM: at least 16 GB
-      - Storage: at least 2GB,
+      - RAM: 16 GB
+      - Storage: 2GB,
       - GPU: Tesla T4
 
 ### Software
@@ -112,7 +128,6 @@ The model achieved an F1-score of 80% and an accuracy of 81% on the validation s
       - PyTorch: 2.2.2
       - Transformers: 4.40.0
       - Sentence Transformers: 2.7.0
-      - Pytorch: Version used for training, aligning with the latest stable release
 
 ## Bias, Risks, and Limitations
 
